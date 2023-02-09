@@ -1,0 +1,214 @@
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<GridPane fx:controller="sample.MyController"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" style="-fx-background-color: lightgray;
+          -fx-border-style: solid; -fx-border-color: dimgray; -fx-border-width: 20">
+
+    <Label text="Macro Calculator" GridPane.rowIndex="0" GridPane.columnIndex="1" textFill="firebrick">
+        <font>
+            <Font size="60" name="Arial bold"/>
+        </font>
+    </Label>
+
+    <HBox GridPane.rowIndex="2" GridPane.columnIndex="1" alignment="CENTER">
+        <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="10">
+            <Label text="1. What is your age, in years?">
+                <font>
+                    <Font size="15"/>
+                </font>
+            </Label>
+            <Spinner fx:id="age" min="0" max="100" editable="true"/>
+            <Label text="2. Enter your height:">
+                <font>
+                    <Font size="15"/>
+                </font>
+            </Label>
+            <HBox GridPane.rowIndex="0" GridPane.columnIndex="0">
+                <Spinner fx:id="heightFeet" min="0" max="8" maxWidth="70" editable="true"/>
+                <Label text="  ft  ">
+                    <font>
+                        <Font size="16"/>
+                    </font>
+                </Label>
+                <Spinner fx:id="heightInches" min="0" max="11" maxWidth="70" editable="true"/>
+                <Label text="  in  ">
+                    <font>
+                        <Font size="16"/>
+                    </font>
+                </Label>
+            </HBox>
+            <Label text="3. Enter your weight, in pounds:">
+                <font>
+                    <Font size="15"/>
+                </font>
+            </Label>
+            <Spinner fx:id="weight" min="0" max="999" editable="true"/>
+        <fx:define>
+            <ToggleGroup fx:id="genderToggleGroup"/>
+        </fx:define>
+            <Label text="4. Select your gender:">
+                <font>
+                    <Font size="15"/>
+                </font>
+            </Label>
+            <RadioButton fx:id="genderChoiceMale" text="Male" toggleGroup="$genderToggleGroup" />
+            <RadioButton fx:id="genderChoiceFemale" text="Female" toggleGroup="$genderToggleGroup" selected="true"/>
+            <Label text="5. Choose your activity level">
+                <font>
+                    <Font size="15"/>
+                </font>
+            </Label>
+            <ChoiceBox fx:id="activityLevel" maxWidth="200" onAction="#onKeyPressed">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="1 - Sedentary (does not workout regularly)"/>
+                        <String fx:value="2 - Lightly Active (exercise 1 - 3 days per week)"/>
+                        <String fx:value="3 - Moderately active (if we called the gym on a week night, you'd be there)"/>
+                        <String fx:value="4 - Very active (At least 2 hours of vigorous exercise daily)"/>
+                    </FXCollections>
+                </items>
+            </ChoiceBox>
+        </VBox>
+    </HBox>
+
+    <GridPane GridPane.rowIndex="6" GridPane.columnIndex="0">
+        <VBox spacing="30">
+            <Label text=" High-Carb Day: " GridPane.rowIndex="0" GridPane.columnIndex="1">
+                <font>
+                    <Font size="30" name="Arial bold"/>
+                </font>
+            </Label>
+            <HBox spacing="20" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER">
+                    <Label text="Protein">
+                        <font>
+                            <Font size="25" name="Arial bold"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="hcpLabel" text="0" textFill="chocolate">
+                        <font>
+                            <Font size="30" name="Arial bold"/>
+                        </font>
+                    </Label>
+                </VBox>
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="CENTER">
+                    <Label text="Carbs">
+                        <font>
+                            <Font size="25" name="Arial bold"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="hccLabel" text="0" textFill="chocolate">
+                        <font>
+                            <Font size="30" name="Arial bold"/>
+                        </font>
+                    </Label>
+                </VBox>
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="2" alignment="CENTER">
+                    <Label text="Fat">
+                        <font>
+                            <Font size="25" name="Arial bold"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="hcfLabel" text="0" textFill="chocolate">
+                        <font>
+                            <Font size="30" name="Arial bold"/>
+                        </font>
+                    </Label>
+                </VBox>
+            </HBox>
+            <VBox GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <Label text="Calories:" GridPane.rowIndex="5" GridPane.columnIndex="1" alignment="CENTER">
+                    <font>
+                        <Font size="30" name="Arial Bold"/>
+                    </font>
+                </Label>
+                <Label fx:id="highCalorieLabel" text="0" alignment="CENTER">
+                    <font>
+                        <Font size="30" name="Arial Bold"/>
+                    </font>
+                </Label>
+            </VBox>
+        </VBox>
+
+    </GridPane>
+
+    <GridPane GridPane.rowIndex="6" GridPane.columnIndex="1" alignment="TOP_CENTER">
+        <VBox>
+            <Button fx:id="calculateButton" text="Calculate" GridPane.rowIndex="4" GridPane.columnIndex="1" onAction="#onButtonClicked"/>
+        </VBox>
+    </GridPane>
+
+    <GridPane GridPane.rowIndex="6" GridPane.columnIndex="2">
+        <VBox spacing="30">
+            <Label text=" Low-Carb Day: " GridPane.rowIndex="0" GridPane.columnIndex="1">
+                <font>
+                    <Font size="30" name="Arial bold"/>
+                </font>
+            </Label>
+            <HBox spacing="20" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER">
+                    <Label text="Protein">
+                        <font>
+                            <Font size="25" name="Arial bold"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="lcpLabel" text="0" textFill="chocolate">
+                        <font>
+                            <Font size="30" name="Arial bold"/>
+                        </font>
+                    </Label>
+                </VBox>
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="CENTER">
+                    <Label text="Carbs">
+                        <font>
+                            <Font size="25" name="Arial bold"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="lccLabel" text="0" textFill="chocolate">
+                        <font>
+                            <Font size="30" name="Arial bold"/>
+                        </font>
+                    </Label>
+                </VBox>
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="2" alignment="CENTER">
+                    <Label text="Fat">
+                        <font>
+                            <Font size="25" name="Arial bold"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="lcfLabel" text="0" textFill="chocolate">
+                        <font>
+                            <Font size="30" name="Arial bold"/>
+                        </font>
+                    </Label>
+                </VBox>
+            </HBox>
+            <VBox GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <Label text="Calories:" GridPane.rowIndex="5" GridPane.columnIndex="1" alignment="CENTER">
+                    <font>
+                        <Font size="30" name="Arial Bold"/>
+                    </font>
+                </Label>
+                <Label fx:id="lowCalorieLabel" text="0" alignment="CENTER">
+                    <font>
+                        <Font size="30" name="Arial Bold"/>
+                    </font>
+                </Label>
+            </VBox>
+        </VBox>
+
+    </GridPane>
+
+</GridPane>
